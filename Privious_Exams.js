@@ -28,7 +28,7 @@ const examSchema = new Schema({
 const Exams = mongoose.model('Exams', examSchema, 'Exams');
 
 // Route to fetch all exams sorted by recency
-router.get('/', async (req, res) => {
+/*router.get('/', async (req, res) => {
     try {
         const exams = await Exams.find().sort({ Date: -1 }).select('Id Instruction Date Time');
         res.json(exams);
@@ -43,5 +43,5 @@ router.get('/:id', (req, res) => {
     const examId = req.params.id;
     res.send(ExamPaper.html);
 });
-
+*/
 module.exports = router;
