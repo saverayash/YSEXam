@@ -4,7 +4,7 @@ function Privious_Exams()
 {
     return(
         <>
-        Privious Exams
+        <h1>Privious Exams</h1>
         </>
     )
 }

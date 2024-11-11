@@ -3,101 +3,72 @@ import java.util.*;
 
 public class Main {
     private static final FastIO sc = new FastIO();
-
+    
     public static void main(String[] args) {
         int t = sc.nextInt();
+      
         while (t-- > 0) {
             solve();
         }
     }
 
     static void solve() {
-       long a=0L;
+       long n=sc.nextLong();
        long b=sc.nextLong();
        long c=sc.nextLong();
-       long d=sc.nextLong();
-       for(int i=62;i>=0;i--)
+       if(b==0L)
        {
-            long x=(b>>i)%2;
-            long y=(c>>i)%2;
-            long z=(d>>i)%2;
-            if(z==1L)
+            if(n<=c+1L)
             {
-                if(y==1L)
-                {
-                    if(x==0L)
-                    {
-                System.out.println("-1");
-                return;
-                    }
-                
-                }
+                if(n==c+1L)
+                System.out.println(n-1L);
                 else
-                a+=(1L<<i);
-
+            System.out.println(n);
             }
+            else if(c+2L==n)
+            System.out.println(n-1L);
             else
-            {
-                   if(y==0L)
-                   {
-                    if(x==1L)
-                    {
-                        System.out.println("-1");
-                        return;
-                            }
-                   }
-                   else
-                   a+=(1L<<i);
-            }
-           
+            System.out.println("-1");
+            return;
        }
-       System.out.println(a);
+      /*  if((n-c-1)%b==0L)
+       System.out.println(Math.min(n,(n-(n-c-1)/b)-1L));
+       else
+       System.out.println(Math.min(n,(n-(n-c-1)/b)));*/
+       if(n-c-1L<0L)
+       System.out.println(n);
+       else
+       System.out.println(n-1-(n-c-1)/b);
     }
-    static long fun(long n)
+    static long cnt(long n)
     {
-          long s=1L,e=5*(long)Math.pow(10,9),m=0L,ans=0L;
-          while(s<=e)
-          {
-            m=s+(e-s)/2;
-            if(m*m<=n)
-            {
-                ans=m;
-                s=m+1;
-            }
-            else
-            e=m-1;
-          }
-          return ans;
-    }
-    static int bfs(int idx,int a[],boolean vi[],ArrayList<ArrayList<Integer>> adj)
-    {
-        if(vi[idx])
-        return 0;
-        vi[idx]=true;
-        for(int ele:adj.get(idx))
-        {
-            if(vi[ele])
-            continue;
-            a[idx]+=bfs(ele,a,vi,adj);
-        }
-        return a[idx];
-    }
-    static long ceil(long a,long b)
-    {
-        if(a%b==0)
-        return a/b;
+        if(n<=1)
+        return n;
+        
+        if(n%2==1)
+        return 1+cnt(n/2);
 
-        return a/b+1;
+        return cnt(n/2);
     }
-    static class Pair
+    static boolean check(long a[],long m,int n)
     {
-        int x;
-        int y;
-        Pair(int x,int y)
+        int i=0;
+        boolean bol=false;
+        for(i=0;i<n;i+=2)
         {
-            this.x=x;
-            this.y=y;
+            if(i+1<n && a[i+1]-a[i]<=m)
+            {
+                continue;
+            }
+            else if(i+1<n)
+            {
+                if(bol)
+                return false;
+                bol=true;
+                i--;
+            }
         }
+        return true;
     }
 }
 
@@ -114,11 +85,6 @@ class FastIO extends PrintWriter {
         br = new BufferedReader(new InputStreamReader(in));
     }
 
-    public FastIO(String input, String output) throws FileNotFoundException {
-        super(output);
-        br = new BufferedReader(new FileReader(input));
-    }
-
     public String next() {
         try {
             while (st == null || !st.hasMoreTokens()) {
@@ -133,10 +99,6 @@ class FastIO extends PrintWriter {
 
     public int nextInt() {
         return Integer.parseInt(next());
-    }
-
-    public double nextDouble() {
-        return Double.parseDouble(next());
     }
 
     public long nextLong() {
